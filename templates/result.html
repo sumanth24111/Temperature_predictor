@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <!-- Animated Elements -->
+    <div class="moving-sun"></div>
+    <div class="moving-cloud"></div>
+    <div class="moving-heatwave"></div>
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Predicted Temperature</h1>
+        <p class="temp">🌡️ {{ temperature }}°C</p>
+        <a href="/" class="btn">Go Back</a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.clouds.min.js"></script>
+    <script>
+        VANTA.CLOUDS({
+            el: "body",
+            skyColor: 0x87ceeb, // Sky blue
+            cloudColor: 0xffffff, // White clouds
+            cloudShadowColor: 0xb0c4de, // Light steel blue
+            sunColor: 0xffd700, // Golden sun
+            sunlightIntensity: 0.6, // Slightly stronger sunlight
+            speed: 0.4, // Slower cloud movement for realism
+            scale: 1.0 // Reduce cloud density
+        });
+
+        // Sun Animation
+        const sun = document.querySelector(".moving-sun");
+        let angle = 0;
+        function animateSun() {
+            angle += 0.005;
+            sun.style.transform = `translateY(${Math.sin(angle) * 10}px)`;
+            requestAnimationFrame(animateSun);
+        }
+        animateSun();
+    </script>
+
+</body>
+</html>
